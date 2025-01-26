@@ -96,7 +96,9 @@ class MainActivity : AppCompatActivity() {
         cameraController.bindToLifecycle(this)
         previewView.controller = cameraController
 
-        val options = FaceDetectorOptions.Builder().build()
+        val options = FaceDetectorOptions.Builder()
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
+            .build()
         val faceDetector = FaceDetection.getClient(options)
 
         cameraController.setImageAnalysisAnalyzer(
@@ -108,10 +110,11 @@ class MainActivity : AppCompatActivity() {
             ) { result ->
                 val faces = result?.getValue(faceDetector)
                 if (faces == null || faces.size == 0 || faces.first() == null) {
+                    overlayView.faces = listOf()
                     return@MlKitAnalyzer
                 }
                 if (faces.isNotEmpty()) {
-                    //
+                    overlayView.faces = faces
                 }
             }
         )
@@ -121,13 +124,13 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.permission_is_required)
             .setMessage(R.string.you_can_grant_permissionuse_camera_app_settings)
-            .setPositiveButton(R.string.open_settings) {_, _ ->
+            .setPositiveButton(R.string.open_settings) { _, _ ->
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 val uri = Uri.fromParts("package", packageName, null)
                 intent.data = uri
                 startActivity(intent)
             }
-            .setNegativeButton(R.string.cancellation) {dialog, _ ->
+            .setNegativeButton(R.string.cancellation) { dialog, _ ->
                 dialog.dismiss()
                 finish()
             }
