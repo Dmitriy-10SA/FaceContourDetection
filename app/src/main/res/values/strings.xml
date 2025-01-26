@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Face Contour Detection</string>
+    <string name="rotate_camera">Перевернуть камеру</string>
 </resources>
