@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Face Contour Detection</string>
+    <string name="app_name">Face Contour</string>
     <string name="rotate_camera">Перевернуть камеру</string>
     <string name="permission_is_required">Требуется разрешение</string>
     <string name="you_can_grant_permissionuse_camera_app_settings">
