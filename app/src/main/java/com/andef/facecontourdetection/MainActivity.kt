@@ -4,9 +4,11 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -25,11 +27,13 @@ import com.google.mlkit.vision.face.FaceDetectorOptions
 
 class MainActivity : AppCompatActivity() {
     private var isFront = false
+    private var contourColor = Color.GREEN
 
     private lateinit var previewView: PreviewView
     private lateinit var overlayView: OverlayView
 
     private lateinit var floatingActionButtonUpheaval: FloatingActionButton
+    private lateinit var imageButtonContourColor: ImageButton
 
     private lateinit var cameraController: LifecycleCameraController
 
@@ -42,10 +46,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        previewView = findViewById(R.id.previewView)
-        overlayView = findViewById(R.id.overlayView)
-
-        floatingActionButtonUpheaval = findViewById(R.id.floatingActionButtonUpheaval)
+        initViews()
 
         val permissionStatus = ContextCompat.checkSelfPermission(
             this,
@@ -61,11 +62,45 @@ class MainActivity : AppCompatActivity() {
                 REQUEST_CODE_PERMISSION_CAMERA
             )
         }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun initViews() {
+        previewView = findViewById(R.id.previewView)
+        overlayView = findViewById(R.id.overlayView)
+
+        floatingActionButtonUpheaval = findViewById(R.id.floatingActionButtonUpheaval)
+        imageButtonContourColor = findViewById(R.id.imageButtonContourColor)
 
         floatingActionButtonUpheaval.setOnClickListener {
             isFront = !isFront
             startAndInitCamera()
         }
+        imageButtonContourColor.setOnClickListener {
+            it.background = getDrawable(getDrawableId())
+            overlayView.contourColor = contourColor
+        }
+    }
+
+    private fun getDrawableId(): Int {
+        val drawableId: Int
+        when (contourColor) {
+            Color.GREEN -> {
+                contourColor = Color.YELLOW
+                drawableId = R.drawable.circle_orange
+            }
+
+            Color.YELLOW -> {
+                contourColor = Color.RED
+                drawableId = R.drawable.circle_red
+            }
+
+            else -> {
+                contourColor = Color.GREEN
+                drawableId = R.drawable.circle_green
+            }
+        }
+        return drawableId
     }
 
     @SuppressLint("MissingSuperCall")
