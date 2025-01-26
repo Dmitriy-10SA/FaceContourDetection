@@ -14,6 +14,12 @@ class OverlayView(context: Context, attrs: AttributeSet?) : View(context, attrs)
         style = Paint.Style.STROKE
         strokeWidth = 8f
     }
+    var contourColor = paint.color
+        get() = paint.color
+        set(value) {
+            paint.color = value
+            field = value
+        }
 
     private var _faces = listOf<Face>()
     var faces = _faces.toList()

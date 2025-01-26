@@ -7,4 +7,5 @@
     </string>
     <string name="open_settings">Открыть настройки</string>
     <string name="cancellation">Отмена</string>
+    <string name="change_contour_color">Сменить цвет контура</string>
 </resources>
