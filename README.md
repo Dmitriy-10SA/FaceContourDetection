@@ -40,6 +40,8 @@ Face Contour Detection — это приложение, использующее
 
 ## **Installation (установка).**
 
+[**Download link or watch below (ссылка для скачивания, либо смотреть ниже)**](https://drive.google.com/drive/folders/1tUXDudERaqq2qRXBfIPTs5rC62CXz8gB?usp=sharing)
+
 1) Clone the repository (клонируйте репозиторий):
 
 - git clone https://github.com/Dmitriy-10SA/FaceContourDetection.git
