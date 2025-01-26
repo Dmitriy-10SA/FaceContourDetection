@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis.COORDINATE_SYSTEM_VIEW_REFERENCED
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.mlkit.vision.MlKitAnalyzer
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
@@ -23,6 +24,8 @@ import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 
 class MainActivity : AppCompatActivity() {
+    private var isFront = false
+
     private lateinit var previewView: PreviewView
     private lateinit var overlayView: OverlayView
 
@@ -50,13 +53,18 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
-            startCamera()
+            startAndInitCamera()
         } else {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.CAMERA),
                 REQUEST_CODE_PERMISSION_CAMERA
             )
+        }
+
+        floatingActionButtonUpheaval.setOnClickListener {
+            isFront = !isFront
+            startAndInitCamera()
         }
     }
 
@@ -69,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             REQUEST_CODE_PERMISSION_CAMERA -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startCamera()
+                    startAndInitCamera()
                 } else {
                     showSettingsDialog()
                 }
@@ -77,9 +85,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun startCamera() {
+    private fun startAndInitCamera() {
+        ProcessCameraProvider.getInstance(this).get().unbindAll()
         cameraController = LifecycleCameraController(this)
-        cameraController.cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+        cameraController.cameraSelector = if (isFront) {
+            CameraSelector.DEFAULT_FRONT_CAMERA
+        } else {
+            CameraSelector.DEFAULT_BACK_CAMERA
+        }
         cameraController.bindToLifecycle(this)
         previewView.controller = cameraController
 
