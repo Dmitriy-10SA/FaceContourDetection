@@ -12,32 +12,6 @@ Face Contour Detection — это приложение, использующее
 
 ---
 
-## **Features (возможности).**
-
-- Real-time face contour detection (обнаружение контуров лица в реальном времени).
-
-- Optimized for performance on Android devices (оптимизировано для работы на Android-устройствах).
-
-- Simple and intuitive user interface (простой и интуитивно понятный интерфейс).
-
-- Built using modern frameworks and libraries (построено с использованием современных фреймворков и библиотек).
-
-- Choosing the contour color (выбор цвета контура).
-
----
-
-## **Getting Started (начало работы).**
-
-*Prerequisites (требования):*
-
-- Android Studio installed on your system (установленный Android Studio).
-
-- Java Development Kit (JDK) 11 or later (Java Development Kit (JDK) версии 11 или выше).
-
-- A device running Android 8.0 (API 26) or higher (устройство с Android 8.0 (API 26) или выше).
-
----
-
 ## **Installation (установка).**
 
 [**Download link or watch below (ссылка для скачивания, либо смотреть ниже)**](https://drive.google.com/drive/folders/1tUXDudERaqq2qRXBfIPTs5rC62CXz8gB?usp=sharing)
@@ -69,8 +43,6 @@ Face Contour Detection — это приложение, использующее
 - The colored circle in the upper right corner is used to select the contour color (цветной круг в правом верхнем угле служит для выбора цвета контура).
 
 ---
-
-## **Useful links (полезные ссылки):**
 
 - https://developer.android.com/media/camera/camerax?hl=ru
 
